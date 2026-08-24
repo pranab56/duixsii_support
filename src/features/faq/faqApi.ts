@@ -2,6 +2,7 @@ import { baseApi } from "../../utils/apiBaseQuery";
 
 export interface IFaqItem {
     _id: string;
+    id?: string;
     question: string;
     answer: string;
     createdAt?: string;

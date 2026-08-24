@@ -23,7 +23,7 @@ export const AgentCardsGrid: React.FC<AgentCardsGridProps> = ({
     busyCount,
     offlineCount,
     onViewDetails,
-    onSuspendAgent
+    onSuspendAgent: _onSuspendAgent
 }) => {
     return (
         <div

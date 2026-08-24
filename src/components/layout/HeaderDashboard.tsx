@@ -78,7 +78,6 @@ const HeaderDashboard = () => {
     const fullName = profile?.fullName || (userContext?.name && userContext.name !== "Mithila Admin" ? userContext.name : "Alex John");
     const rawRoleString = profile?.role || roleFromStorage;
     const displayRole = rawRoleString.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-    const isAgent = rawRoleString.toLowerCase().includes('agent');
 
     const handleOpenLogoutModal = () => {
         setIsLogoutModalOpen(true);

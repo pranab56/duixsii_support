@@ -1,5 +1,5 @@
 import PageHeader from '../../components/ui/PageHeader';
-import { useGetSettingsQuery } from '../../features/Privacy/privacyApi';
+import { useGetSettingsQuery } from '../../features/privacy/privacyApi';
 
 const PrivacyPolicy = () => {
     const { data: response, isLoading, isError } = useGetSettingsQuery({ key: 'privacyPolicy', value: 'privacyPolicy' });

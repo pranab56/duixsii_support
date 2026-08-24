@@ -39,6 +39,10 @@ export interface ManagerAgent {
     key: string;
     agentId: string;
     name: string;
+    email?: string;
+    phone?: string;
+    resolvedToday?: number;
+    csatScore?: number;
     avatar: string;
     status: 'Online' | 'Busy' | 'Offline';
     activeChats: number;

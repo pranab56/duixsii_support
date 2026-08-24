@@ -4,14 +4,19 @@ import { AgentFeedback } from '../agent-management.types';
 
 interface FeedbackCardListProps {
     feedbacks: AgentFeedback[];
-    totalChatsHandled: number;
+    totalChatsHandled?: number;
 }
 
-export const FeedbackCardList: React.FC<FeedbackCardListProps> = ({ feedbacks, totalChatsHandled }) => {
+export const FeedbackCardList: React.FC<FeedbackCardListProps> = ({ feedbacks }) => {
     return (
         <div className="bg-white rounded-2xl p-6 border border-[#FFD2D6]/40 shadow-[0_4px_20px_rgba(86,0,12,0.03)] text-left flex flex-col gap-4">
-            <h3 className="text-lg font-bold text-[#242424] m-0">Recent Feedback</h3>
-            <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold text-[#242424] m-0">Customer Feedback</h3>
+                <span className="text-xs font-semibold text-gray-400">
+                    {feedbacks.length} {feedbacks.length === 1 ? 'Review' : 'Reviews'}
+                </span>
+            </div>
+            <div className="flex flex-col gap-3 max-h-[360px] overflow-y-auto pr-1">
                 {feedbacks.length > 0 ? (
                     feedbacks.map((fb: AgentFeedback) => (
                         <div
@@ -36,9 +41,6 @@ export const FeedbackCardList: React.FC<FeedbackCardListProps> = ({ feedbacks, t
                     </div>
                 )}
             </div>
-            <button className="w-full h-10 border border-[#56000c] text-[#56000c] hover:bg-[#56000c]/5 font-semibold text-xs rounded-xl flex items-center justify-center transition-all bg-transparent cursor-pointer border-solid">
-                View All {totalChatsHandled} Reviews
-            </button>
         </div>
     );
 };
