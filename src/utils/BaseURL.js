@@ -1,2 +1,2 @@
-export const baseURL = "http://10.10.26.185:4000";
+export const baseURL = "https://humayon5000.naimulhassan.me";
 export default baseURL;
