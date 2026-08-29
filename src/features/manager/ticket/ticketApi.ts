@@ -63,6 +63,7 @@ export interface AgentListResponse {
 export interface AssignTicketPayload {
     chatId: string;
     assignAgentId: string;
+    isReassign?: boolean;
 }
 
 export interface AssignTicketResponse {

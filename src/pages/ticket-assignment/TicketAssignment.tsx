@@ -9,6 +9,7 @@ import {
     useGetAllTicketQuery,
     useAssignTicketMutation,
     TicketItem,
+    AssignTicketPayload,
 } from '../../features/manager/ticket/ticketApi';
 import {
     useGetAllSupportAgentQuery,
@@ -96,11 +97,18 @@ const TicketAssignment = () => {
 
         setAssigningTicketId(ticket._id);
 
+        const isReassign = Boolean(ticket.assignSupportAgentId) || activeTab === 'Assigned';
+
         try {
-            const res = await assignTicket({
+            const payload: AssignTicketPayload = {
                 chatId: ticket._id,
                 assignAgentId: agentIdToAssign,
-            }).unwrap();
+            };
+            if (isReassign) {
+                payload.isReassign = true;
+            }
+
+            const res = await assignTicket(payload).unwrap();
 
             Swal.fire({
                 title: 'Success!',
