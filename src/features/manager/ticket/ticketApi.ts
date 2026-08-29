@@ -71,13 +71,19 @@ export interface AssignTicketResponse {
     data?: any;
 }
 
+export interface GetAllTicketParams {
+    page?: number;
+    type?: 'unassigned' | 'assigned';
+}
+
 export const ticketApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getAllTicket: builder.query<TicketListResponse, { page?: number } | void>({
+        getAllTicket: builder.query<TicketListResponse, GetAllTicketParams | void>({
             query: (params) => {
                 const pageNum = params?.page || 1;
+                const type = params?.type || 'unassigned';
                 return {
-                    url: `/chat/all-chat-list?assigned=assigned&page=${pageNum}`,
+                    url: `/chat/all-chat-list?${type}=${type}&page=${pageNum}`,
                     method: "GET",
                 };
             },
@@ -102,7 +108,7 @@ export const ticketApi = baseApi.injectEndpoints({
                     body: data,
                 };
             },
-            invalidatesTags: ["ticket", "chat", "manager_overview"],
+            invalidatesTags: ["ticket", "chat", "manager_overview", "users"],
         }),
     }),
 });

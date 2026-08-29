@@ -132,7 +132,7 @@ const Chats = () => {
         }
 
         const isReadInSession = Boolean(readChatKeys[chat._id]);
-        
+
         // Determine unread count strictly based on item.message.seen
         let calculatedUnreadCount = 0;
         if (isReadInSession) {
@@ -169,7 +169,7 @@ const Chats = () => {
         const stateUserName = stateObj.userName;
 
         if (stateChatId || stateUserId || stateUserName) {
-            const targetChat = chats.find(c => 
+            const targetChat = chats.find(c =>
                 (stateChatId && (c.chatId === stateChatId || c.key === stateChatId)) ||
                 (stateUserId && (c.receiverId === stateUserId || c.chatId === stateUserId || c.key === stateUserId)) ||
                 (stateUserName && c.userName.toLowerCase() === stateUserName.toLowerCase())
@@ -266,8 +266,9 @@ const Chats = () => {
                 formData.append('image', imageFile);
             }
 
-            await createMessage(formData).unwrap();
-            showToast('Message sent successfully!');
+            const response = await createMessage(formData).unwrap();
+            console.log(response)
+            showToast('');
         } catch (err: any) {
             console.error('Send Message Error:', err);
             const errorMsg = err?.data?.message || err?.message || 'Failed to send message';

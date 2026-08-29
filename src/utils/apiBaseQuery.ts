@@ -45,5 +45,5 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ["agent_overview", "faq", "settings", "rating", "customer", "chat", "messages", "profile", "manager_overview", "ticket", "agent", "notification"],
+  tagTypes: ["agent_overview", "faq", "settings", "rating", "customer", "chat", "messages", "profile", "manager_overview", "ticket", "agent", "notification", "users"],
 });

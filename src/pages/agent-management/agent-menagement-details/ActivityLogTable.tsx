@@ -50,9 +50,6 @@ export const ActivityLogTable: React.FC<ActivityLogTableProps> = ({ activityLog 
         <div className="bg-white rounded-2xl p-6 border border-[#FFD2D6]/40 shadow-[0_4px_20px_rgba(86,0,12,0.03)] text-left flex flex-col gap-4">
             <div className="flex justify-between items-center">
                 <h3 className="text-lg font-bold text-[#242424] m-0">Detailed Activity Log</h3>
-                <button className="text-xs font-semibold text-[#ff4d4f] hover:text-[#56000c] bg-transparent border-0 cursor-pointer outline-none hover:underline">
-                    View Full History &gt;
-                </button>
             </div>
             <div className="overflow-x-auto">
                 <Table
