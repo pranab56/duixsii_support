@@ -27,14 +27,24 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const result = await rawBaseQuery(args, api, extraOptions);
 
-  const url = typeof args === "string" ? args : args?.url;
-  const isAuthEndpoint = url?.startsWith("/");
+  if (result.error?.status === 401) {
+    const url = typeof args === "string" ? args : args?.url;
 
-  if (result.error?.status === 401 && !isAuthEndpoint) {
-    api.dispatch(logout());
-    api.dispatch(baseApi.util.resetApiState());
-    if (typeof window !== "undefined") {
-      window.location.href = "/login";
+    // Only trigger logout on auth-specific endpoints
+    // For all other 401s (profile, notification, etc.) we do NOT force logout
+    // — the API might return 401 for role/permission reasons, not session expiry
+    const isSessionExpiredEndpoint =
+      url?.includes("/auth/me") ||
+      url?.includes("/auth/profile") ||
+      url?.includes("/auth/verify");
+
+    if (isSessionExpiredEndpoint) {
+      console.warn("[Auth] Session expired, logging out.");
+      api.dispatch(logout());
+      api.dispatch(baseApi.util.resetApiState());
+    } else {
+      // Log for debugging — check browser Network tab for the failing URL
+      console.warn(`[Auth] 401 received on: ${url} — user NOT logged out automatically.`);
     }
   }
 

@@ -21,7 +21,7 @@ export const useChatSocket = (chatId?: string | null) => {
     const userId = storedUserData?._id || storedUserData?.id || storedUserData?.user?._id || storedUserData?.user?.id;
 
     const rawToken = (typeof window !== 'undefined'
-        ? (getFromLocalStorage('accessToken') || getFromLocalStorage('douxsii-admin-token') || getFromLocalStorage('token'))
+        ? (getFromLocalStorage('accessToken') || getFromLocalStorage('douxsii-support-token') || getFromLocalStorage('token'))
         : null) || '';
 
     const cleanToken = rawToken ? rawToken.replace(/^Bearer\s+/i, '') : '';

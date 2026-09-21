@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getToken, removeToken, saveToken } from "../../utils/storage";
+import { saveToken } from "../../utils/storage";
+import { clearAuthSession, getValidAuthToken } from "../../utils/auth";
 
 export interface AuthState {
   token: string | null;
@@ -10,7 +11,7 @@ export interface AuthState {
 
 const getStoredRole = (): string | null => {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem("role") || null;
+  return localStorage.getItem("role") || localStorage.getItem("userRole") || null;
 };
 
 const getStoredPermissions = (): string[] => {
@@ -24,14 +25,14 @@ const getStoredPermissions = (): string[] => {
 
 const getPermissionsReady = (): boolean => {
   if (typeof window === "undefined") return false;
-  const role = localStorage.getItem("role");
+  const role = localStorage.getItem("role") || localStorage.getItem("userRole");
   if (!role) return false;
   if (role === "super_admin") return true;
   return localStorage.getItem("permissions") !== null;
 };
 
 const initialState: AuthState = {
-  token: typeof window !== "undefined" ? getToken() : null,
+  token: typeof window !== "undefined" ? getValidAuthToken() : null,
   role: getStoredRole(),
   permissions: getStoredPermissions(),
   permissionsReady: getPermissionsReady(),
@@ -52,18 +53,19 @@ const authSlice = createSlice({
     setRole: (state, action: PayloadAction<string>) => {
       state.role = action.payload;
       localStorage.setItem("role", action.payload);
+      localStorage.setItem("userRole", action.payload);
     },
     setPermissionsReady: (state, action: PayloadAction<boolean>) => {
       state.permissionsReady = action.payload;
     },
     logout: (state) => {
+      console.warn("[Auth] logout() dispatched. Call stack below:");
+      console.trace();
       state.token = null;
       state.role = null;
       state.permissions = [];
       state.permissionsReady = false;
-      removeToken();
-      localStorage.removeItem("role");
-      localStorage.removeItem("permissions");
+      clearAuthSession();
     },
   },
 });

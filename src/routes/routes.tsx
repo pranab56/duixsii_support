@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../App';
 import Login from '../pages/auth/Login';
 import ForgetPassword from '../pages/auth/ForgetPassword';
@@ -43,6 +43,7 @@ const router = createBrowserRouter([
             { path: 'about', element: <AboutUs /> },
             { path: 'profile', element: <Profile /> },
             { path: 'notification', element: <Notification /> },
+            { path: '*', element: <Navigate to="/" replace /> },
         ],
     },
     {
@@ -77,8 +78,14 @@ const router = createBrowserRouter([
             </PublicRoute>
         ),
     },
+    {
+        path: '*',
+        element: (
+            <ProtectedRoute>
+                <Navigate to="/" replace />
+            </ProtectedRoute>
+        ),
+    },
 ]);
-
-
 
 export default router;

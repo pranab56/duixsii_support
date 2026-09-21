@@ -1,15 +1,23 @@
 export const saveToken = (token: string): void => {
-    localStorage.setItem("douxsii-admin-token", token);
-    // Set cookie so Next.js middleware can read it for route protection
-    document.cookie = `douxsii-admin-token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+    if (!token) return;
+    localStorage.setItem("douxsii-support-token", token);
+    localStorage.setItem("accessToken", token);
+    // Set cookies so any middleware or external handler can access it
+    document.cookie = `douxsii-support-token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+    document.cookie = `douxsii-token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
 };
 
 export const getToken = (): string | null => {
-    return localStorage.getItem("douxsii-admin-token");
+    if (typeof window === "undefined") return null;
+    return localStorage.getItem("douxsii-support-token") || localStorage.getItem("accessToken") || null;
 };
 
 export const removeToken = (): void => {
-    localStorage.removeItem("douxsii-admin-token");
-    // Remove cookie
-    document.cookie = "douxsii-admin-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    if (typeof window === "undefined") return;
+    localStorage.removeItem("douxsii-support-token");
+    localStorage.removeItem("accessToken");
+    // Remove cookies
+    document.cookie = "douxsii-support-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "douxsii-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 };
+

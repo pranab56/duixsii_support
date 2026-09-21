@@ -27,7 +27,7 @@ export const useNotificationSocket = () => {
 
     // Retrieve token from storage utility and localStorage keys
     const rawToken = (typeof window !== 'undefined'
-        ? (getFromLocalStorage('accessToken') || getFromLocalStorage('douxsii-admin-token') || getFromLocalStorage('token'))
+        ? (getFromLocalStorage('accessToken') || getFromLocalStorage('douxsii-support-token') || getFromLocalStorage('token'))
         : null) || '';
 
     const cleanToken = rawToken ? rawToken.replace(/^Bearer\s+/i, '') : '';
