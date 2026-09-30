@@ -88,8 +88,8 @@ export const clearAuthSession = (): void => {
     removeFromLocalStorage('forgetToken');
     removeFromLocalStorage('email');
     if (typeof document !== 'undefined') {
-      document.cookie = 'douxsii-support-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-      document.cookie = 'douxsii-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'Denior-support-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'Denior-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     }
   } catch (err) {
     console.error('Error clearing auth session:', err);
