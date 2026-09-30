@@ -95,11 +95,11 @@ const Sidebar = () => {
                 <div className="flex flex-col h-full">
                     {/* Header/Logo Section */}
                     <Link to="/">
-                        <div className="flex flex-col items-center justify-center pt-8 pb-6 transition-all hover:opacity-90">
+                        <div className="flex flex-col items-center justify-center pt-8 pb-6">
                             <img
                                 src="/logo.png"
                                 alt="Logo"
-                                className="w-16 h-16 object-contain rounded-full shadow-sm border border-[#56000c]/10"
+                                className="w-20 h-20"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = "/vite.svg";
                                 }}
